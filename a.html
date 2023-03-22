@@ -1,0 +1,68 @@
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!-- <script src="covid.js"></script> -->
+<link rel="stylesheet" href="styles.css">
+These are the Covid Statistics of the country:
+</head>
+<body onload="myFunction()">
+
+    <div>
+    <input type="text" id="SearchBox">
+    <br><br>
+    <!-- <button onclick="myFunction()" id="Submit">Enter</button> -->
+    <br>
+   
+<div id="MainContent">
+    <div id=confirmed></div>
+    <div id=recovered></div>
+    <div id=deaths></div>
+    <div id=active></div>
+    <div id=location></div>
+  
+</div> 
+
+</body>
+<script>
+    const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        console.log(urlParams.get('country'));
+        document.getElementById("SearchBox").value=urlParams.get('country');
+        $("#SearchBox").add(urlParams.get('country'));
+        $("#SearchBox")
+function myFunction()
+{
+console.log('HI')
+var html="";
+var searchCountry=$("#SearchBox").val();
+var url='https://covid2019-api.herokuapp.com/v2/country/'+searchCountry;
+$.get(url).then((
+    data1) => {
+        console.log(data1);
+        document.getElementById("confirmed").innerHTML="Confirmed cases =" +" "+ data1.data.confirmed;  
+        document.getElementById("recovered").innerHTML="Recovered cases ="+" "+ data1.data.recovered;
+        document.getElementById("deaths").innerHTML="Death cases =" +" "+ data1.data.deaths;
+        document.getElementById("active").innerHTML="Active cases =" +" "+ data1.data.active;
+        document.getElementById("location").innerHTML="Location ="+" " + data1.data.location;
+        
+         
+    });
+}
+
+function onload() {
+
+    const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        console.log(urlParams.get('country'));
+        document.getElementById("SearchBox").innerHTML=urlParams.get('country');
+};
+
+
+
+
+</script>
+<br><br>
+<button onclick="window.location.href='index.php'">Home</button>
+
+</html>
+

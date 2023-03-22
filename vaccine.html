@@ -1,0 +1,68 @@
+
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!-- <script src="covid.js"></script> -->
+<link rel="stylesheet" href="styles1.css">
+Vaccination Statistics of the country:
+</head>
+<body onload="myFunction()">
+
+    <div>
+    <input type="text" id="SearchBox">
+    <br><br>
+    <!-- <button onclick="myFunction()" id="Submit">Enter</button> -->
+    <br>
+   
+<div id="MainContent">
+    <div id=administered></div>
+    <div id=people_vaccinated></div>
+    <div id=people_partially_vaccinated></div>
+    <div id=population></div>
+    <div id=continent></div>
+    <div id=location></div>
+</div> 
+
+</body>
+<script>
+     const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        console.log(urlParams.get('country'));
+        document.getElementById("SearchBox").value=urlParams.get('country');
+        $("#SearchBox").add(urlParams.get('country'));
+        $("#SearchBox")
+function myFunction()
+{
+console.log('HI')
+var html="";
+var searchCountry=$("#SearchBox").val();
+var url='https://covid-api.mmediagroup.fr/v1//vaccines?country='+searchCountry;
+$.get(url).then((
+    data) => {  console.log('test');
+        document.getElementById("administered").innerHTML="Administered cases = "+" "+data.All.administered;  
+        document.getElementById("people_vaccinated").innerHTML="Fully Vaccinated people  ="+" "+data.All.people_vaccinated;
+        document.getElementById("people_partially_vaccinated").innerHTML="Partially vaccinated people  ="+" "+data.All.people_partially_vaccinated;
+        document.getElementById("population").innerHTML="Population ="+" "+data.All.population;
+        document.getElementById("continent").innerHTML="Continent ="+" "+data.All.continent;
+        
+        
+         
+    });
+}
+
+function onload() {
+
+const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    console.log(urlParams.get('country'));
+    document.getElementById("SearchBox").innerHTML=urlParams.get('country');
+};
+
+
+
+
+</script>
+<br><br>
+<button onclick="window.location.href='index.php'">Home</button>
+</html>
+
